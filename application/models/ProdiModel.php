@@ -17,6 +17,13 @@ class ProdiModel extends CI_Model
             'nama_prodi' => $this->input->post('nama_prodi')
         ];
         $this->db->insert($this->tabel, $data);
+        if ($this->db->affected_rows() > 0) {
+            $this->session->set_flashdata('pesan', "Data Program Studi berhasil ditambahkan!");
+            $this->session->set_flashdata('status', true);
+        } else {
+            $this->session->set_flashdata('pesan', "Data Program Studi gagal ditambahkan!");
+            $this->session->set_flashdata('status', false);
+        }
     }
 
     public function get_prodi_byid($id)
@@ -31,11 +38,25 @@ class ProdiModel extends CI_Model
         ];
         $this->db->where('id', $this->input->post('id'));
         $this->db->update($this->tabel, $data);
+        if ($this->db->affected_rows() > 0) {
+            $this->session->set_flashdata('pesan', "Data Program Studi berhasil diubah!");
+            $this->session->set_flashdata('status', true);
+        } else {
+            $this->session->set_flashdata('pesan', "Data Program Studi gagal diubah!");
+            $this->session->set_flashdata('status', false);
+        }
     }
 
     public function delete_prodi($id)
     {
         $this->db->where('id', $id);
         $this->db->delete($this->tabel);
+        if ($this->db->affected_rows() > 0) {
+            $this->session->set_flashdata('pesan', "Data Program Studi berhasil dihapus!");
+            $this->session->set_flashdata('status', true);
+        } else {
+            $this->session->set_flashdata('pesan', "Data Program Studi gagal dihapus!");
+            $this->session->set_flashdata('status', false);
+        }
     }
 }
