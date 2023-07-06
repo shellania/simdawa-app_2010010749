@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 23, 2023 at 03:49 PM
+-- Generation Time: Jul 06, 2023 at 08:16 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.2
 
@@ -43,7 +43,9 @@ INSERT INTO `beasiswa` (`id`, `nama_beasiswa`, `tanggal_mulai`, `tanggal_selesai
 (1, 'Beasiswa Bidikmisi', '2023-07-16', '2023-12-08', 3),
 (2, 'Beasiswa olahraga', '2023-06-08', '2023-12-28', 5),
 (3, 'besiswa uniska', '2023-01-08', '2023-06-24', 3),
-(4, 'Beasiswa Uniska', '2023-06-13', '2023-12-29', 7);
+(4, 'Beasiswa Uniska', '2023-06-13', '2023-12-29', 7),
+(5, 'Beasiswa Uniska', '2023-01-06', '2023-07-06', 8),
+(6, 'Beasiswa Swasta', '2023-02-14', '2023-07-22', 9);
 
 -- --------------------------------------------------------
 
@@ -63,7 +65,8 @@ CREATE TABLE `jenis_beasiswa` (
 
 INSERT INTO `jenis_beasiswa` (`id`, `nama_jenis`, `keterangan`) VALUES
 (5, 'Beasiswa Tahfidz', 'Untuk mahasiswa yang hafal Al-Qur\'an minimal 5 Juz'),
-(8, 'KIP Kuliah', 'Beasiswa KIP Kuliah UNISKA');
+(8, 'KIP Kuliah', 'Beasiswa KIP Kuliah UNISKA'),
+(9, 'Beasiswa BCA Finance', 'Jenis beasiswa yang terdapat di perguruan tinggi adalah beasiswa BCA Finance');
 
 -- --------------------------------------------------------
 
@@ -78,8 +81,15 @@ CREATE TABLE `pendaftaran_pengguna` (
   `no_handphone` varchar(15) DEFAULT NULL,
   `bukti_daftar` varchar(225) DEFAULT NULL,
   `prodi_id` int(11) DEFAULT NULL,
-  `keterangan` enum('Belum Diverifikasi','Sudah Diverifikasi') DEFAULT NULL
+  `keterangan` enum('Sudah Diverifikasi','Belum Diverifikasi','Akun Dibatalkan') DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `pendaftaran_pengguna`
+--
+
+INSERT INTO `pendaftaran_pengguna` (`id`, `no_pendaftaran`, `nama_lengkap`, `no_handphone`, `bukti_daftar`, `prodi_id`, `keterangan`) VALUES
+(1, '1', 'Shellania', '087829508584', 'uniska_logo.png', NULL, 'Sudah Diverifikasi');
 
 -- --------------------------------------------------------
 
@@ -110,6 +120,14 @@ CREATE TABLE `pengguna` (
   `pendaftaran_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `pengguna`
+--
+
+INSERT INTO `pengguna` (`id`, `username`, `PASSWORD`, `peran`, `login_terakhir`, `pendaftaran_id`) VALUES
+(1, '1', '55ad0d2a271aa5e1ec11fdc60190b349', 'USER', '2023-06-24 02:32:04', 1),
+(2, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'ADMIN', '2023-06-24 03:16:29', NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -128,7 +146,8 @@ CREATE TABLE `persyaratan` (
 
 INSERT INTO `persyaratan` (`id`, `nama_persyaratan`, `keterangan`) VALUES
 (2, 'Warga Negara Indonesia', 'calon beasiswa peserta harus merupakan warga asli negara indonesia'),
-(3, 'Berusia maksimal 19 tahun', 'penerima beasiswa minimal berusia 19 tahun sebelum bulan agustus');
+(3, 'Berusia maksimal 19 tahun', 'penerima beasiswa minimal berusia 19 tahun sebelum bulan agustus'),
+(4, 'IPK ', 'Minimal IPK 3,0');
 
 -- --------------------------------------------------------
 
@@ -242,31 +261,31 @@ ALTER TABLE `prodi`
 -- AUTO_INCREMENT for table `beasiswa`
 --
 ALTER TABLE `beasiswa`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `jenis_beasiswa`
 --
 ALTER TABLE `jenis_beasiswa`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `pendaftaran_pengguna`
 --
 ALTER TABLE `pendaftaran_pengguna`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `pengguna`
 --
 ALTER TABLE `pengguna`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `persyaratan`
 --
 ALTER TABLE `persyaratan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `persyaratan_beasiswa`
